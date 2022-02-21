@@ -13,14 +13,12 @@
 }
 
 .menu {
-    border: 1px solid #fff;
     width: 900px;
     display: flex;
     justify-self: space-between;
 }
 
 .links {
-    border: 1px solid #fff; 
     display: flex;
     justify-content: flex-end;
   }
@@ -47,7 +45,8 @@
   .social,
   .logo,
   .subscribe {
-      border: 1px solid #5995DA
+      align-self: flex-end;
+      margin-bottom: 20px;
   }
 
   .photo-grid-container {
@@ -58,7 +57,10 @@
   .photo-grid {
     width: 900px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    align-items: center;
   }
   
   .photo-grid-item {
@@ -66,3 +68,38 @@
     width: 300px;
     height: 300px;
   }
+
+.first-item {
+    order: 1
+}
+
+ .last-item {
+     order: -1
+ }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer-item {
+    border: 1px solid #fff;
+    background-color: #D6E9FE;
+    height: 200px;
+    flex: 1;
+  }
+
+  .footer-three {
+    flex: 2;
+  }
+
+.footer-one,
+.footer-three {
+  background-color: #5995DA;
+  flex: initial;
+  width: 300px;
+}
+
+.signup  {
+    margin-left: auto;
+}
