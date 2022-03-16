@@ -6,39 +6,76 @@ document.addEventListener('DOMContentLoaded', () => {
   const width = 10;
   // Tetrominoes
   const lTetromino = [
-    [1, width+1, width*2+1, 2],
-    [width, width+1, width+2, width*2+2],
-    [1, width+1, width*2+1, width*2],
-    [width, width*2, width*]
-  ]
+    [1, width + 1, width * 2 + 1, 2],
+    [width, width + 1, width + 2, width * 2 + 2],
+    [1, width + 1, width * 2 + 1, width * 2],
+    [width, width * 2, width * 2 + 1, width * 2 + 2]
+  ];
+  const zTetromino = [
+    [0, width, width + 1, width * 2 + 1],
+    [width + 1, width + 2, width * 2, width * 2 + 1],
+    [0, width, width + 1, width * 2 + 1],
+    [width + 1, width + 2, width * 2, width * 2 + 1]
+  ];
+  const tTetromino = [
+    [1, width, width + 1, width + 2],
+    [1, width + 1, width + 2, width * 2 + 1],
+    [width, width + 1, width + 2, width * 2 + 1],
+    [1, width, width + 1, width * 2 + 1]
+  ];
+  const oTetromino = [
+    [0, 1, width, width + 1],
+    [0, 1, width, width + 1],
+    [0, 1, width, width + 1],
+    [0, 1, width, width + 1]
+  ];
+  const iTetromino = [
+    [1, width + 1, width * 2 + 1, width * 3 + 1],
+    [width, width + 1, width + 2, width + 3],
+    [1, width + 1, width * 2 + 1, width * 3 + 1],
+    [width, width + 1, width + 2, width + 3]
+  ];
 
-   const zTetromino = [
-     [0, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
-     [GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1],
-     [0, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
-     [GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1]
-    ]
-    
-    const tTetromino = [
-      [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2],
-      [1, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
-      [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
-      [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1]
-    ]
-    
-    const oTetromino = [
-      [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
-      [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
-      [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
-      [0, 1, GRID_WIDTH, GRID_WIDTH + 1]
-    ]
-    
-    const iTetromino = [
-      [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
-      [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
-      [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
-      [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3]
-    ]    
+  const tetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino];
 
+  let currentPosition = 4;
 
+  // Randomly select tetromino type.
+  let random = Math.floor(Math.random() * tetrominoes.length);
+  let current = tetrominoes[0][0];
+
+  // Draw first rotation in 1st tetromino
+  function draw() {
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.add('tetromino');
+    });
+  }
+
+  // Undraw the tetromino
+  function undraw() {
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.remove('tetromino');
+    });
+  }
+
+  // Shift tetronimo down the screen by an amount
+  function moveDown() {
+    undraw();
+    currentPosition += width;
+    draw();
+  }
+
+  // Freeze tetromino, keeps it on grid.
+  function freeze() {
+    if (current.some((index) => squares[currentPosition + index + width].classList.contains('taken'))) {
+      current.forEach((index) => squares[currentPosition + index].classList.add('taken'));
+      // Start a new tetronimo falling.
+      random = math.floor(Math.random() * tetrominoes.length);
+      current = tetrominoes[random][currentRotation];
+    }
+  }
+  // Make tetromino move down once per second
+  timerId = setInterval(moveDown, 1000);
+
+  console.log(squares, random, current);
 });
