@@ -103,3 +103,46 @@
 .signup  {
     margin-left: auto;
 }
+
+.carousel {
+  display: flex;
+  overflow: hidden;
+  max-width: 600px;
+  position: relative;
+  align-items: center;
+}
+
+.carousel .carousel-item,
+.carousel .carousel-item-hidden {
+  display: none;
+}
+
+.carousel .carousel-item img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+
+.carousel .carousel-item-visible {
+  display: block;
+}
+
+.carousel .button {
+  background-color: #5995DA;
+  height: 50px;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.carousel .button:hover {
+  background-color: orange;
+  transition: 0.5s
+}
+
+.button-prev {
+  background-color: aqua;
+}
+
+.button-next {
+  background-color: red;
+}
