@@ -7,11 +7,11 @@ const totalSlides = slidesArray.length; // Count of the number of slides in caro
 function updateSlidePosiion() {
   slidesArray.forEach((slide) => {
     console.log(slide);
-    slides.classList.remvove('.carousel-item-visible');
-    slides.classList.add('.carousel-item-hidden');
+    slides.classList.remvove('.carousel_item--visible');
+    slides.classList.add('.carousel_item--hidden');
   });
 
-  slides(slidePosition).classList.add('.carousel-item-visible');
+  slidesArray[slidePosition].classList.add('.carousel_item--visible');
 }
 
 function moveToNextSlide() {
