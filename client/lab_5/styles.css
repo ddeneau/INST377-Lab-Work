@@ -36,7 +36,8 @@ body {
 }
 
 .inner {
-  flex-direction: row-reverse;
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   margin: auto;
 }
