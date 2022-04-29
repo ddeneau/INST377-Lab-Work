@@ -25,3 +25,18 @@ body {
   max-width: 960px;
   margin-top: 25px;
 }
+
+.buttons {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.label {
+  margin: 5px;
+}
+
+.inner {
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  margin: auto;
+}
