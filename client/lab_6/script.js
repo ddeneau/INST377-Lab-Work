@@ -1,5 +1,11 @@
+function dataHandler(dataIn) {
+
+}
+
 async function mainEvent() { // the async keyword means we can make API requests
   const form = document.querySelector('.main_form');
+  const sub = document.querySelector('.button is-primary'); // Get the submit button.
+  sub.addEventListener('mouseover', sub.style.setProperty('display: none')); // Change the display style on mouse over.
   form.addEventListener('submit', async (submitEvent) => { // async has to be declared all the way to get an await
     submitEvent.preventDefault(); // This prevents your page from refreshing!
     console.log('form submission'); // this is substituting for a "breakpoint"
@@ -11,5 +17,6 @@ async function mainEvent() { // the async keyword means we can make API requests
   });
 }
 
+dataHandler();
 // this actually runs first! It's calling the function above
 document.addEventListener('DOMContentLoaded', async () => mainEvent()); // the async keyword means we can make API requests
