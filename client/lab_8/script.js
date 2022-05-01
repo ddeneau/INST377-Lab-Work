@@ -35,7 +35,7 @@ function createHTMLList(listIn) { // Populates the list elements in the HTML mod
 }
 
 function initMap(targetId) {
-  const latLong = [76.8721, 38.7849];
+  const latLong = [38.784, -76.872];
   const map = L.map(targetId).setView(latLong, 13);
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -46,6 +46,14 @@ function initMap(targetId) {
     accessToken: 'pk.eyJ1IjoiZGRlbmVhdSIsImEiOiJjbDJudTNqaHUxYXpqM2tteDVxaDBhZ2FuIn0.LqRchsud0sx2eWQLcYrbDg'
   }).addTo(map);
   return map;
+}
+
+function addMapMarkers(map, listIn) {
+  listIn.forEach((item) => {
+    const point = item.geocoded_column_1?.coordinates;
+    console.log(point);
+    L.marker([point[1], point[0]]).addTo(map);
+  });
 }
 
 async function mainEvent() { // the async keyword means we can make API requests
@@ -62,17 +70,19 @@ async function mainEvent() { // the async keyword means we can make API requests
   if (localStorage.getItem(retrievalVar) === undefined) {
     const results = await fetch('/api/foodServicesPG'); // This accesses some data from our API
     const arrayFromJson = await results.json(); // This changes it into data we can use - an object
-    localStorage.setItem(retrievalVar, JSON.stringify(arrayFromJson));
+    localStorage.setItem(retrievalVar, JSON.stringify(arrayFromJson.data));
   }
 
-  const storedData = localStorage.getItem(retrievalVar);
-  // const storedDataArray = JSON.parse(storedData);
-  console.log(storedData);
+  const storedDataStr = localStorage.getItem(retrievalVar);
+  const storedDataArr = JSON.parse(storedDataStr);
 
-  // submit.addEventListener('mouseover', submit.style.setProperty('display:', 'none'));
-  // Change the display style on mouse over.
+  console.log(storedDataArr);
 
-  if (storedData.length > 0) { // Makes sure that array is filled
+  if (storedDataArr.length > 0) {
+    console.log('Stored Data Array is filled.');
+  }
+
+  if (storedDataArr.length > 0) { // Makes sure that array is filled
   // before we start operating with it.
     submit.style.display = 'block'; // Change the display style on mouse over.
 
@@ -82,7 +92,7 @@ async function mainEvent() { // the async keyword means we can make API requests
       if (currentArray.length < 1) {
         return;
       }
-      const selectRest = storedData.filter((item) => {
+      const selectRest = storedDataArr.filter((item) => {
         // console.log(item);
         // console.log(item.name);
         const lowerName = item.name.toLowerCase();
@@ -98,13 +108,13 @@ async function mainEvent() { // the async keyword means we can make API requests
         return;
       }
 
-      const selectZip = storedData.filter((item) => {
+      const selectZip = storedDataArr.filter((item) => {
         console.log(item.zip);
         console.log(event.target.value);
         const zipString = item.zip.toString();
         return zipString === event.target.value.toString();
       });
-      console.log(selectZip);
+      // console.log(selectZip);
       createHTMLList(selectZip);
     });
 
@@ -112,8 +122,10 @@ async function mainEvent() { // the async keyword means we can make API requests
       submitEvent.preventDefault(); // This prevents your page from refreshing!
       // arrayFromJson.data - we're accessing a key called 'data' on the returned object
       // it contains all 1,000 records we need
-      currentArray = restArrayFiller(storedData);
+      currentArray = restArrayFiller(storedDataArr);
       createHTMLList(currentArray);
+      addMapMarkers(map, currentArray);
+      console.log(currentArray);
     });
   }
 }

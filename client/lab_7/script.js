@@ -32,6 +32,8 @@ function createHTMLList(listIn) { // Populates the list elements in the HTML mod
     // console.log(injectThisItem);
     targetlist.innerHTML += injectThisItem;
   });
+
+  return targetlist;
 }
 
 async function mainEvent() { // the async keyword means we can make API requests
