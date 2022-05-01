@@ -51,13 +51,13 @@ async function mainEvent() { // the async keyword means we can make API requests
 
     let currentArray = [];
     restName.addEventListener('input', async (event) => {
-      console.log(event.target.value);
+      // console.log(event.target.value);
       if (currentArray.length < 1) {
         return;
       }
       const selectRest = currentArray.filter((item) => {
-        console.log(item);
-        console.log(item.name);
+        // console.log(item);
+        // console.log(item.name);
         const lowerName = item.name.toLowerCase();
         const lowerValue = event.target.value.toLowerCase();
         return lowerName.includes(lowerValue);
@@ -71,8 +71,14 @@ async function mainEvent() { // the async keyword means we can make API requests
         return;
       }
 
-      const selectRest = currentArray.filter((item) => item.name === event.target.value);
-      createHTMLList(selectRest);
+      const selectZip = currentArray.filter((item) => {
+        console.log(item.zip);
+        console.log(event.target.value);
+        const zipString = item.zip.toString();
+        return zipString === event.target.value.toString();
+      });
+      console.log(selectZip);
+      createHTMLList(selectZip);
     });
 
     form.addEventListener('submit', async (submitEvent) => { // async has to be declared all the way to get an await
