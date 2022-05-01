@@ -21,7 +21,17 @@ function restArrayFiller(dataIn) {
 }
 
 function createHTMLList(listIn) {
-  console.log(listIn);
+  // console.log('Fired HTML creator')
+  // console.log(listIn);
+  const targetlist = document.querySelector('.rest_list');
+  targetlist.innerHTML = '';
+  listIn.forEach((item) => {
+    const {name} = item;
+    const displayName = name.slice(0, 1) + name.slice(1, name.length + 1).toLowerCase();
+    const injectThisItem = `<li> ${displayName} </li>`;
+    // console.log(injectThisItem);
+    targetlist.innerHTML += injectThisItem;
+  });
 }
 
 async function mainEvent() { // the async keyword means we can make API requests
