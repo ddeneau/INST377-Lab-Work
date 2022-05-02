@@ -67,7 +67,7 @@ async function mainEvent() { // the async keyword means we can make API requests
 
   submit.style.dislay = 'none';
 
-  if (localStorage.getItem(retrievalVar) === undefined) {
+  if (localStorage.getItem(retrievalVar) !== undefined) {
     const results = await fetch('/api/foodServicesPG'); // This accesses some data from our API
     const arrayFromJson = await results.json(); // This changes it into data we can use - an object
     localStorage.setItem(retrievalVar, JSON.stringify(arrayFromJson.data));
@@ -75,12 +75,7 @@ async function mainEvent() { // the async keyword means we can make API requests
 
   const storedDataStr = localStorage.getItem(retrievalVar);
   const storedDataArr = JSON.parse(storedDataStr);
-
   console.log(storedDataArr);
-
-  if (storedDataArr.length > 0) {
-    console.log('Stored Data Array is filled.');
-  }
 
   if (storedDataArr.length > 0) { // Makes sure that array is filled
   // before we start operating with it.
@@ -99,6 +94,7 @@ async function mainEvent() { // the async keyword means we can make API requests
         const lowerValue = event.target.value.toLowerCase();
         return lowerName.includes(lowerValue);
       });
+
       createHTMLList(selectRest);
       // console.log(matchRestName);
     });
